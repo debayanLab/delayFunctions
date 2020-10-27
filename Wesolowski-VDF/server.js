@@ -39,7 +39,9 @@ console.log(bigInt(p1).isPrime());
 console.log(bigInt(p2).isPrime());
 
 const N = bigInt(p1).multiply(p2); // RSA modulus of bit size lamda 
-const totient = bigInt(p1-1).multiply(p2-1);// totient of the N
+var p1_totient = bigInt(p1).prev();
+var p2_totient = bigInt(p2).prev();
+const totient = bigInt(p1_totient).multiply(p2_totient);// totient of the N
 
 // security parameter (typically between 128 and 256)
 const k = 128;
@@ -64,6 +66,7 @@ io.on('connection', newConnection);
 function newConnection(socket){
     console.log('User connected: '+ socket.id);
     // console.log("Helo")
+    io.emit('send_x', x);
     io.emit('send_y', y);
     io.emit('send_t', t);
     io.emit('send_N', N);
@@ -73,16 +76,32 @@ function newConnection(socket){
     socket.on('send_prime', (data) => {
         console.log('The value of prime l is '+ data);
         var l = data;
-        const lmod = bigInt(l).modInv(totient)
-        const q = bigInt(xpow).multiply(lmod)
-        console.log("The value of t is", t)
-        console.log("The value of xpow is", xpow)
-        console.log("The value of lmod is", lmod)
-        console.log("The value of q is", q)
-        proof = bigInt(x).modPow(q, N)
-        console.log("The value of proof is", proof)
+        const lmod = bigInt(l).modInv(totient);
+        const r = bigInt(2).modPow(t, l);
+        console.log("r", r);
+        const r_dash = bigInt(r).mod(totient);
+        // var xpow_dash = bigInt(2).pow(t);
+        const q_r = bigInt(xpow).minus(r_dash);
+        const q_dash = bigInt(q_r).mod(totient);
+        const q_mult = bigInt(q_dash).multiply(lmod);
+        // const l_totient = bigInt(l).mod(totient);
+        // const q_dash = bigInt(q_r).divide(l_totient);
+        // console.log("old value of q_dash", q_dash_old);
+        // console.log("new value of q_dash", q_dash);
+
+        const q = bigInt(q_mult).mod(totient);
+        // const q = Math.floor(q_totient);
+        // console.log("The value of t is", t);
+        // console.log("The value of xpow is", xpow);
+        // console.log("The value of lmod is", lmod);
+        // console.log("The value of q is", q);
+        proof = bigInt(x).modPow(q, N);
+        console.log("The value of proof is", proof);
 
         io.emit('send_proof', proof);
+    });
+    socket.on('verify', (data)=>{
+        console.log(data);
     });
     
 }
