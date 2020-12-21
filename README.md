@@ -1,7 +1,7 @@
 # Capstone Project
 ## Implementation of Verifiable Delay Functions in Javascript
 
-This project includes implementation of following constructions:
+This repository includes implementation of the following constructions in javascript using node.js and socket.io.
 1. Wesolowski's Interactive VDF
 2. Wesolowski's Non-Interactive VDF
 3. Pietrzak's Interactive VDF
@@ -28,3 +28,5 @@ For more details about these topics, refer to Capstone-Report.pdf
     node server.js
     ```
 4. Open "http://localhost:3000/" in the web-browser
+
+## 
