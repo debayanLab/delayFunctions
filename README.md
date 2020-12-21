@@ -1,5 +1,5 @@
-## Capstone Project
-# Implementation of Verifiable Delay Functions in Javascript
+# Capstone Project
+## Implementation of Verifiable Delay Functions in Javascript
 
 This project includes implementation of following constructions:
 1. Wesolowski's Interactive VDF
@@ -12,7 +12,7 @@ This project includes implementation of following constructions:
 
 For more details about these topics, refer to Capstone-Project.pdf
 
-# How to Build
+## How to Build
 
 1. Clone
 
