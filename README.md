@@ -10,7 +10,7 @@ This project includes implementation of following constructions:
 6. Stronger CVDF
 7. Outsourcing CVDF
 
-For more details about these topics, refer to Capstone-Project.pdf
+For more details about these topics, refer to Capstone-Report.pdf
 
 ## How to Build
 
